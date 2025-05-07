@@ -31,11 +31,12 @@ def chat():
             {"role": "system", "content": "あなたは子どもにやさしく教えるAI先生です。むずかしい言葉はつかわず、こわい・せいてき・あらっぽい話はしないでください。"},
             {"role": "user", "content": user_input}
         ]
-
         try:
-            response = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",
-                messages=messages
+             response = openai.ChatCompletion.create(
+                 model="gpt-4o",
+                 messages=messages,
+                 temperature=0.7,  # 応答のランダム性（低いと堅い、高いと柔らかい）
+                 max_tokens=1000   # 応答の長さ制限（お好みで）
             )
             answer = response.choices[0].message.content
         except Exception as e:
