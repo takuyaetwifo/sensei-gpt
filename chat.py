@@ -39,7 +39,8 @@ def chat():
             )
             answer = response.choices[0].message.content
         except Exception as e:
-            answer = "ごめんね。いまはこたえられないみたい。あとでまたためしてね。"
+            answer = f"エラー内容：{str(e)}"
+
 
     return render_template("chat.html", answer=answer)
 
