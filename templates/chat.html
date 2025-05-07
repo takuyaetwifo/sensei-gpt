@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>せんせいGPT</title>
+</head>
+<body>
+    <h2>せんせいGPT（子ども用）</h2>
+    <form method="post">
+        <input type="text" name="message" placeholder="しつもんしてね！" size="50">
+        <input type="submit" value="おくる">
+    </form>
+    {% if answer %}
+    <p><strong>こたえ：</strong> {{ answer }}</p>
+    {% endif %}
+</body>
+</html>
