@@ -32,7 +32,7 @@ def chat():
             {"role": "user", "content": user_input}
         ]
         try:
-             response = openai.ChatCompletion.create(
+            response = openai.ChatCompletion.create(
                  model="gpt-4o",
                  messages=messages,
                  temperature=0.7,  # 応答のランダム性（低いと堅い、高いと柔らかい）
