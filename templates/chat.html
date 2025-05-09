@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>せんせいGPT</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="header">
+    ログイン中: {{ username }} さん |
+    <a href="/logout">ログアウト</a>
+  </div>
+
+  <h2>せんせいGPT チャット</h2>
+  <p>こんにちは、{{ username }}さん！</p>
+
+  <form method="POST">
+    <input type="text" name="user_input" required>
+    <button type="submit">送信</button>
+  </form>
+
+  <div class="chat-log">
+    {% for m in messages %}
+      {% if m.role == "user" %}
+        <div class="message user"><strong>あなた:</strong><br>{{ m.content }}</div>
+      {% elif m.role == "assistant" %}
+        <div class="message gpt"><strong>先生:</strong><br>{{ m.content }}</div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</body>
+</html>
