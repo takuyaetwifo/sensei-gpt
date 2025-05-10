@@ -337,6 +337,7 @@ def allowed_file(filename):
 
 if __name__ == "__main__":
     with app.app_context():
+        upgrade() 
         # 管理ユーザー takuya を追加
         if not User.query.filter_by(username="takuya").first():
             admin = User(
