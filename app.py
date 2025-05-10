@@ -12,7 +12,7 @@ from werkzeug.utils import secure_filename
 import os
 from flask_migrate import upgrade
 from models import User
-
+from werkzeug.security import generate_password_hash
 
 
 app = Flask(__name__)
@@ -326,9 +326,50 @@ def allowed_file(filename):
 
 #render    
 # ✅ appを定義した後に書く
+#if __name__ == "__main__":
+#    with app.app_context():
+#        upgrade()  # ✅ Flask 3 ではここで直接呼び出す
+
+#    port = int(os.environ.get("PORT", 10000))
+#    app.run(host="0.0.0.0", port=port)
+    
+
+
 if __name__ == "__main__":
     with app.app_context():
-        upgrade()  # ✅ Flask 3 ではここで直接呼び出す
+        # 管理ユーザー takuya を追加
+        if not User.query.filter_by(username="takuya").first():
+            admin = User(
+                username="takuya",
+                password=generate_password_hash("nana"),
+                role="admin",
+                theme_color="lightblue"
+            )
+            db.session.add(admin)
+
+        # 子どもユーザー sakura を追加
+        if not User.query.filter_by(username="sakura").first():
+            sakura = User(
+                username="sakura",
+                password=generate_password_hash("3939"),
+                role="admin",
+                theme_color="lightpink"
+            )
+            db.session.add(sakura)
+
+        # 子どもユーザー seiya を追加
+        if not User.query.filter_by(username="seiya").first():
+            seiya = User(
+                username="seiya",
+                password=generate_password_hash("1212"),
+                role="admin",
+                theme_color="lightgreen"
+            )
+            db.session.add(seiya)
+
+        db.session.commit()
+        print("✅ ユーザー（takuya, sakura, seiya）を登録しました。")
 
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
+
