@@ -18,7 +18,7 @@ form {
 }
 input[type="text"],
 input[type="password"] {
-  width: 100%;
+  width: 90%;
   padding: 0.5em;
   margin-top: 0.2em;
   margin-bottom: 1em;
@@ -60,12 +60,12 @@ a:hover {
   max-width: 80%;
   clear: both;
 }
-.user {
+.gpt {
   background-color: #dff9fb;
   float: right;
-  text-align: right;
+  text-align: left;
 }
-.gpt {
+.user {
   background-color: #f1f2f6;
   float: left;
   text-align: left;
