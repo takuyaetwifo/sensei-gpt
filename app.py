@@ -1,6 +1,6 @@
 
 from flask import Flask, request, render_template, redirect, url_for, session
-from models import db, User, ChatLog
+from models import db
 from config import Config
 from datetime import datetime
 from functools import wraps
@@ -10,7 +10,7 @@ import random
 from flask_migrate import Migrate
 from werkzeug.utils import secure_filename
 import os
-
+from flask_migrate import upgrade
 
 
 app = Flask(__name__)
@@ -323,14 +323,12 @@ def allowed_file(filename):
     #app.run(debug=True)  # パソコンでは host や port は指定不要
 
 #render    
-from flask_migrate import upgrade
-
+# ✅ appを定義した後に書く
 @app.before_first_request
 def initialize_database():
     with app.app_context():
         upgrade()
-        
+
 if __name__ == "__main__":
-    # Render用：環境変数PORTを取得、なければ10000
-    port = int(os.environ.get("PORT", 10000))
+    port = int(os.environ.get("PORT", 10000))  # Render用
     app.run(host="0.0.0.0", port=port)
