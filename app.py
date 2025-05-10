@@ -328,7 +328,8 @@ def allowed_file(filename):
 # ✅ appを定義した後に書く
 if __name__ == "__main__":
     with app.app_context():
-        upgrade()  # ✅ Flask 3 ではここで直接呼び出す
+        db.create_all()
+  #      upgrade()  # ✅ Flask 3 ではここで直接呼び出す
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
     
