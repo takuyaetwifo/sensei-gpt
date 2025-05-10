@@ -190,6 +190,14 @@ def clear_chat():
 
 
 
+@app.route("/admin/delete-users-table")
+def delete_users():
+    from sqlalchemy import text
+    db.session.execute(text("DROP TABLE IF EXISTS users CASCADE;"))
+    db.session.commit()
+    return "users テーブルが存在していれば削除しました。"
+
+
 #@app.route("/settings", methods=["GET", "POST"])
 #@login_required
 #def settings():
@@ -305,17 +313,22 @@ def allowed_file(filename):
 
 
 
-if __name__ == "__main__":
+
 
 
 #local
-  #  with app.app_context():
-   #     db.create_all()
+#if __name__ == "__main__":
+    #with app.app_context():
+    #    db.create_all()
     #app.run(debug=True)  # パソコンでは host や port は指定不要
 
-#render
-    from flask_migrate import upgrade
+#render    
+from flask_migrate import upgrade
+
+if __name__ == "__main__":
     with app.app_context():
-        upgrade()  # ← これがマイグレーションを実行します
-    port = int(os.environ.get("PORT", 10000))  # Renderでは環境変数PORTを使う
+        upgrade()  # マイグレーションを実行（migrations/を元にDB整備）
+
+    # Render用：環境変数PORTを取得、なければ10000
+    port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
