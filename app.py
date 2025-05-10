@@ -13,7 +13,7 @@ import os
 from flask_migrate import upgrade
 from models import User
 from werkzeug.security import generate_password_hash
-
+from models import ChatLog
 
 app = Flask(__name__)
 app.config.from_object(Config)
