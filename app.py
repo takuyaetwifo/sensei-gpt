@@ -11,6 +11,8 @@ from flask_migrate import Migrate
 from werkzeug.utils import secure_filename
 import os
 from flask_migrate import upgrade
+from models import User
+
 
 
 app = Flask(__name__)
