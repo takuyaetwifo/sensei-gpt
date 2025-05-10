@@ -306,12 +306,16 @@ def allowed_file(filename):
 
 
 if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
+
 
 #local
+  #  with app.app_context():
+   #     db.create_all()
     #app.run(debug=True)  # パソコンでは host や port は指定不要
 
 #render
+    from flask_migrate import upgrade
+    with app.app_context():
+        upgrade()  # ← これがマイグレーションを実行します
     port = int(os.environ.get("PORT", 10000))  # Renderでは環境変数PORTを使う
     app.run(host="0.0.0.0", port=port)
