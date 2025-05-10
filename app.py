@@ -325,10 +325,12 @@ def allowed_file(filename):
 #render    
 from flask_migrate import upgrade
 
-if __name__ == "__main__":
+@app.before_first_request
+def initialize_database():
     with app.app_context():
-        upgrade()  # マイグレーションを実行（migrations/を元にDB整備）
-
+        upgrade()
+        
+if __name__ == "__main__":
     # Render用：環境変数PORTを取得、なければ10000
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
