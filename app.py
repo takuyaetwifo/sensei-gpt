@@ -324,11 +324,9 @@ def allowed_file(filename):
 
 #render    
 # ✅ appを定義した後に書く
-@app.before_first_request
-def initialize_database():
-    with app.app_context():
-        upgrade()
-
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 10000))  # Render用
+    with app.app_context():
+        upgrade()  # ✅ Flask 3 ではここで直接呼び出す
+
+    port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
